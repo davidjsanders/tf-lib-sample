@@ -1,5 +1,9 @@
-output "ip" {
+output "jumpbox-ip" {
     value = module.k8s-jumpbox.private-ip
+}
+
+output "master-ip" {
+    value = module.srv-master.private-ip
 }
 
 output "pip-name" {

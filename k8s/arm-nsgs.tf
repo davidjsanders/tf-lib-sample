@@ -3,7 +3,7 @@ module "k8s-nsg-masters" {
   nsg = {
     location = module.k8s-rg.location
     nsg-name = format(
-      "%s-masters%s",
+      "%s-masters",
       var.resources.name-prefix
     )
     randomizer = local.l-random
@@ -17,7 +17,7 @@ module "k8s-nsg-workers" {
   nsg = {
     location = module.k8s-rg.location
     nsg-name = format(
-      "%s-workers%s",
+      "%s-workers",
       var.resources.name-prefix
     )
     randomizer = local.l-random
@@ -31,7 +31,7 @@ module "k8s-nsg-jumpbox" {
   nsg = {
     location = module.k8s-rg.location
     nsg-name = format(
-      "%s-jumpbox%s",
+      "%s-jumpbox",
       var.resources.name-prefix
     )
     randomizer = local.l-random
