@@ -36,7 +36,7 @@ variable "network" {
 variable "resources" {
     type = object({
         name-prefix = string
-        sa-prefix   = string
+        sa-name   = string
         randomized  = bool
     })
 }

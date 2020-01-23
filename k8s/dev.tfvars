@@ -24,7 +24,7 @@ network = {
 }
 resources = {
     name-prefix = "k8s-lib"
-    sa-prefix   = "dasanderk8slib"
+    sa-name   = "dasanderk8slib"
     randomized = true
 }
 rg = {
