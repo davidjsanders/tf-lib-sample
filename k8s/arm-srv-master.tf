@@ -2,11 +2,11 @@ module "srv-master" {
   source          = "git@github.com:dgsd-consulting/tf-library.git//azure/linux-server/"
 
   linux-server    = {
-    admin-user              = var.jumpbox.admin-user
+    admin-user              = var.master.admin-user
     location                = module.k8s-rg.location
-    machine-size            = var.jumpbox.machine-size
+    machine-size            = var.master.machine-size
     pip-id                  = ""
-    public-key              = file(var.jumpbox.public-key-file)
+    public-key              = file(var.master.public-key-file)
     randomizer              = local.l-random
     rg-name                 = module.k8s-rg.name
     server-count            = 1
@@ -19,8 +19,8 @@ module "srv-master" {
     storage-image-reference = format(
       "/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Compute/images/%s",
       var.azure-secrets.subscription-id,
-      var.jumpbox.image-rg,
-      var.jumpbox.image-name
+      var.master.image-rg,
+      var.master.image-name
     )
   }
   tags            = var.tags

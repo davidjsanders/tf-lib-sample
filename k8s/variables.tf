@@ -20,6 +20,17 @@ variable "jumpbox" {
       }
   )
 }
+variable "master" {
+  type = object(
+      {
+          admin-user      = string
+          image-name      = string
+          image-rg        = string
+          machine-size    = string
+          public-key-file = string
+      }
+  )
+}
 variable "master-data-disk" {
     type = object({
         disk-name = string
@@ -48,4 +59,15 @@ variable "rg" {
 }
 variable "tags" {
   type = object({})
+}
+variable "workers" {
+  type = object(
+      {
+          admin-user      = string
+          image-name      = string
+          image-rg        = string
+          machine-size    = string
+          public-key-file = string
+      }
+  )
 }
