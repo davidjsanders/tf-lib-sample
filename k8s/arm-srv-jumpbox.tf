@@ -3,6 +3,11 @@ module "k8s-jumpbox" {
 
   jumpbox         = {
     admin-user              = var.jumpbox.admin-user
+    availability-set-id     = ""
+    boot-diags              = true
+    boot-diags-sa-uri       = module.k8s-storage-account.primary_blob_endpoint
+    custom-data             = ""
+    domain-name-label       = "djs-k8s-bare"
     jumpbox-name            = format(
       "%s-jumpbox",
       var.resources.name-prefix
@@ -15,7 +20,6 @@ module "k8s-jumpbox" {
     public-key              = file(var.jumpbox.public-key-file)
     randomizer              = local.l-random
     rg-name                 = module.k8s-rg.name
-    storage-account-uri     = module.k8s-storage-account.primary_blob_endpoint
     subnet-id               = module.k8s-network.subnet-ids[2]
     storage-image-reference = format(
       "/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Compute/images/%s",

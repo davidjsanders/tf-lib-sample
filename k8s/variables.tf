@@ -1,22 +1,22 @@
 variable "azure-secrets" {
     type = object(
         {
-            client-id       = string
-            client-secret   = string
-            tenant-id       = string
-            subscription-id = string
-            public-key      = string
+            client-id        = string
+            client-secret    = string
+            tenant-id        = string
+            subscription-id  = string
         }
     )
 }
 variable "jumpbox" {
   type = object(
       {
-          admin-user      = string
-          image-name      = string
-          image-rg        = string
-          machine-size    = string
-          public-key-file = string
+          admin-user       = string
+          image-name       = string
+          image-rg         = string
+          machine-size     = string
+          public-key-file  = string
+          private-key-file = string
       }
   )
 }

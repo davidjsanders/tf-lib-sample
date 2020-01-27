@@ -1,14 +1,15 @@
 jumpbox = {
-    admin-user      = "azadmin"
-    image-name      = "K8S-UBUNTU-1804-20-01-14"
-    image-rg        = "RG-ENGINEERING"
-    machine-size    = "Standard_DS1_v2"
-    public-key-file = "~/.ssh/azure-pk.pub"
+    admin-user       = "azadmin"
+    image-name       = "K8S-UBUNTU-1804-20-01-26"
+    image-rg         = "RG-ENGINEERING"
+    machine-size     = "Standard_DS1_v2"
+    public-key-file  = "~/.ssh/azure-pk.pub"
+    private-key-file = "~/.ssh/azure-pk"
 }
 
 master = {
     admin-user      = "azadmin"
-    image-name      = "K8S-UBUNTU-1804-20-01-14"
+    image-name      = "K8S-UBUNTU-1804-20-01-26"
     image-rg        = "RG-ENGINEERING"
     machine-size    = "Standard_DS2_v2"
     public-key-file = "~/.ssh/azure-pk.pub"
@@ -54,7 +55,7 @@ tags                 = {
 
 workers = {
     admin-user      = "azadmin"
-    image-name      = "K8S-UBUNTU-1804-20-01-14"
+    image-name      = "K8S-UBUNTU-1804-20-01-26"
     image-rg        = "RG-ENGINEERING"
     machine-size    = "Standard_DS2_v2"
     public-key-file = "~/.ssh/azure-pk.pub"

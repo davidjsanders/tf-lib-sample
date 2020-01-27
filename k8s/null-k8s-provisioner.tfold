@@ -1,0 +1,19 @@
+resource "null_resource" "jumpbox-provisioner" {
+  triggers = {
+    master-disk  = azurerm_virtual_machine_data_disk_attachment.attach-master-disk.id
+    jumpbox      = module.k8s-jumpbox.vm-id
+    k8s-master   = module.srv-master.vm-ids
+    k8s-worker-1 = module.srv-worker-1.vm-ids
+    k8s-worker-2 = module.srv-worker-2.vm-ids
+    k8s-worker-3 = module.srv-worker-3.vm-ids
+  }
+
+  connection {
+    host         = azurerm_network_interface.k8s-nic-master.private_ip_address
+    bastion_host = azurerm_public_ip.k8s-pip-jump.*.ip_address[0]
+    type         = "ssh"
+    user         = var.vm-adminuser
+    private_key  = var.private-key
+  }
+
+}

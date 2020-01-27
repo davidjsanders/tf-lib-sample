@@ -1,5 +1,5 @@
 output "jumpbox-ip" {
-    value = module.k8s-jumpbox.private-ip
+    value = data.azurerm_public_ip.attached-pip.ip_address
 }
 
 output "master-ip" {

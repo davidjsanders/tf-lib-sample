@@ -2,15 +2,11 @@ ifndef WORKDIR
   override WORKDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 endif
 
-ifndef IMAGE_NAME
-  override IMAGE_NAME := "dsanderscan/docker-terraform:19.10.33"
-endif
-
 ifndef ENVIRONMENT
   override ENVIRONMENT=dev
 endif
 
-.PHONY: init taint plan apply destroy graph
+.PHONY: init taint plan apply destroy
 
 taint:
 	@start="`date`"; \
@@ -51,27 +47,9 @@ apply:
 	echo "Finished apply at : `date`"; \
 	echo
 
-graph:
-	@start="`date`"; \
-	docker run \
-	--rm -it \
-	--volume $(WORKDIR):/data \
-	--volume $(WORKDIR)/targets:/secrets \
-	--volume $(HOME)/.ssh/:/ssh/ \
-	$(IMAGE_NAME) \
-		graph \
-		-type=plan \
-		/secrets/$(ENVIRONMENT)-run; \
-	echo ; \
-	echo "Started graph at  : $$start"; \
-	echo "Finished graph at : `date`"; \
-	echo
-
 destroy:
 	@start="`date`"; \
 	terraform destroy \
-		-force \
-		-input=false \
 		-var-file=$(ENVIRONMENT).tfvars \
 		-var-file=credentials.secret; \
 	echo ; \
