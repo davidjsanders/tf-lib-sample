@@ -4,7 +4,7 @@ module "vm" {
         admin-user              = var.jumpbox.admin-user
         availability-set-id     = ""
         boot-diags              = true
-        boot-diags-sa-uri       = module.k8s-storage-account.primary_blob_endpoint
+        boot-diags-sa-uri       = azurerm_storage_account.sa.primary_blob_endpoint
         custom-data             = ""
         data-disks = [
             {
