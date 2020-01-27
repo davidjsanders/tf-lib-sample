@@ -1,5 +1,5 @@
 module "k8s-jumpbox" {
-  source          = "git@github.com:dgsd-consulting/tf-library.git//azure/linux-jumpbox/"
+  source          = "git@github.com:dgsd-consulting/tf-library.git//azure/linux-jumpbox?ref=v0.1"
 
   jumpbox         = {
     admin-user              = var.jumpbox.admin-user
