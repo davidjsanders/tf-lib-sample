@@ -6,7 +6,7 @@ ifndef ENVIRONMENT
   override ENVIRONMENT=dev
 endif
 
-.PHONY: init taint plan apply destroy
+.PHONY: apply destroy init outputs plan taint
 
 taint:
 	@start="`date`"; \
@@ -45,6 +45,15 @@ apply:
 	echo ; \
 	echo "Started apply at  : $$start"; \
 	echo "Finished apply at : `date`"; \
+	echo
+
+outputs:
+	@start="`date`"; \
+	echo ; \
+	terraform output; \
+	echo ; \
+	echo "Started output at  : $$start"; \
+	echo "Finished output at : `date`"; \
 	echo
 
 destroy:

@@ -1,6 +1,7 @@
-# output "public-ip" {
-#     value = azurerm_public_ip.jumpbox-pip.ip_address
-# }
-output "public-ip" {
+output "jumpbox-fqdn" {
+    value = module.vm-jumpbox.fqdn
+}
+
+output "jumpbox-ip" {
     value = module.vm-jumpbox.public-ip
 }

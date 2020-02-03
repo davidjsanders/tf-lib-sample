@@ -21,7 +21,8 @@ module "vm-jumpbox" {
             custom-data             = ""
             disable-password-auth   = true
             hostname                = "jumpbox"
-            public-key              = file(var.master.public-key-file)
+            private-key-filename    = var.jumpbox.private-key-file
+            public-key              = file(var.jumpbox.public-key-file)
             storage-image-reference = format(
                 "/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Compute/images/%s",
                 var.azure-secrets.subscription-id,

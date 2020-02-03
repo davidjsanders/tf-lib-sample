@@ -17,6 +17,7 @@ module "vm" {
             custom-data             = ""
             disable-password-auth   = true
             hostname                = "test-vm"
+            private-key-filename    = var.master.private-key-file
             public-key              = file(var.master.public-key-file)
             storage-image-reference = format(
                 "/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Compute/images/%s",

@@ -15,19 +15,20 @@ variable "jumpbox" {
           image-name       = string
           image-rg         = string
           machine-size     = string
-          public-key-file  = string
           private-key-file = string
+          public-key-file  = string
       }
   )
 }
 variable "master" {
   type = object(
       {
-          admin-user      = string
-          image-name      = string
-          image-rg        = string
-          machine-size    = string
-          public-key-file = string
+          admin-user       = string
+          image-name       = string
+          image-rg         = string
+          machine-size     = string
+          private-key-file = string
+          public-key-file  = string
       }
   )
 }
@@ -63,11 +64,12 @@ variable "tags" {
 variable "workers" {
   type = object(
       {
-          admin-user      = string
-          image-name      = string
-          image-rg        = string
-          machine-size    = string
-          public-key-file = string
+          admin-user       = string
+          image-name       = string
+          image-rg         = string
+          machine-size     = string
+          private-key-file = string
+          public-key-file  = string
       }
   )
 }
