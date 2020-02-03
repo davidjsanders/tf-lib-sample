@@ -1,41 +1,38 @@
-module "k8s-nsg-masters" {
-  source = "git@github.com:dgsd-consulting/tf-library.git//azure/lib/nsg/"
-  nsg = {
-    location = module.k8s-rg.location
-    nsg-name = format(
-      "%s-masters",
-      var.resources.name-prefix
+resource "azurerm_network_security_group" "k8s-nsg-masters" {
+  name                = upper(
+    format(
+      "NSG-%s-masters%s",
+      var.resources.name-prefix,
+      local.l-random
     )
-    randomizer = local.l-random
-    rg-name  = module.k8s-rg.name
-  }
-  tags = var.tags
+  )
+  location            = azurerm_resource_group.k8s-rg.location
+  resource_group_name = azurerm_resource_group.k8s-rg.name
+  tags                = var.tags
 }
 
-module "k8s-nsg-workers" {
-  source = "git@github.com:dgsd-consulting/tf-library.git//azure/lib/nsg/"
-  nsg = {
-    location = module.k8s-rg.location
-    nsg-name = format(
-      "%s-workers",
-      var.resources.name-prefix
+resource "azurerm_network_security_group" "k8s-nsg-workers" {
+  name                = upper(
+    format(
+      "NSG-%s-workers%s",
+      var.resources.name-prefix,
+      local.l-random
     )
-    randomizer = local.l-random
-    rg-name  = module.k8s-rg.name
-  }
-  tags = var.tags
+  )
+  location            = azurerm_resource_group.k8s-rg.location
+  resource_group_name = azurerm_resource_group.k8s-rg.name
+  tags                = var.tags
 }
 
-module "k8s-nsg-jumpbox" {
-  source = "git@github.com:dgsd-consulting/tf-library.git//azure/lib/nsg/"
-  nsg = {
-    location = module.k8s-rg.location
-    nsg-name = format(
-      "%s-jumpbox",
-      var.resources.name-prefix
+resource "azurerm_network_security_group" "jumpbox-nsg" {
+  name                = upper(
+    format(
+      "NSG-%s-jumpbox%s",
+      var.resources.name-prefix,
+      local.l-random
     )
-    randomizer = local.l-random
-    rg-name  = module.k8s-rg.name
-  }
-  tags = var.tags
+  )
+  location            = azurerm_resource_group.k8s-rg.location
+  resource_group_name = azurerm_resource_group.k8s-rg.name
+  tags                = var.tags
 }

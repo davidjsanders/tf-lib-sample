@@ -5,16 +5,16 @@ module "vm-jumpbox" {
             enable = true
             uri    = azurerm_storage_account.sa.primary_blob_endpoint
         }
-        location         = module.k8s-rg.location
+        location         = azurerm_resource_group.k8s-rg.location
         network          = {
-            nsg-name              = module.k8s-nsg-jumpbox.name
+            nsg-name              = azurerm_network_security_group.jumpbox-nsg.name
             nsg-rule-priority     = 1000
             pip-alloc             = "Dynamic"
             pip-domain-name-label = "dasander-jumpbox"
             pip-sku               = "Basic"
             private-ip-address    = ""
             private-ip-alloc      = "Dynamic"
-            subnet-id             = module.k8s-network.subnet-ids[2]
+            subnet-id             = module.k8s-network.subnets.*.id[2]
         }
         os               = {
             admin-user              = var.jumpbox.admin-user
@@ -37,7 +37,7 @@ module "vm-jumpbox" {
             delete-on-done = true
         }
         randomizer       = local.l-random
-        rg-name          = module.k8s-rg.name
+        rg-name          = azurerm_resource_group.k8s-rg.name
         server           = {
             availability-set-id = ""
             machine-size        = var.jumpbox.machine-size

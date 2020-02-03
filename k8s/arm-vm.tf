@@ -5,12 +5,12 @@ module "vm" {
             enable = true
             uri    = azurerm_storage_account.sa.primary_blob_endpoint
         }
-        location         = module.k8s-rg.location
+        location         = azurerm_resource_group.k8s-rg.location
         network          = {
             private-ip-address = ""
             private-ip-alloc   = "Dynamic"
             public-ip-id       = ""
-            subnet-id          = module.k8s-network.subnet-ids[2]
+            subnet-id          = module.k8s-network.subnets.*.id[2]
         }
         os               = {
             admin-user              = var.jumpbox.admin-user
@@ -33,7 +33,7 @@ module "vm" {
             delete-on-done = true
         }
         randomizer       = local.l-random
-        rg-name          = module.k8s-rg.name
+        rg-name          = azurerm_resource_group.k8s-rg.name
         server           = {
             availability-set-id = ""
             machine-size        = var.master.machine-size

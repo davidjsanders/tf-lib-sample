@@ -1,9 +1,11 @@
-module "k8s-rg" {
-  source    = "git@github.com:dgsd-consulting/tf-library.git//azure/lib/resource-group/"
-  rg        = {
-    randomizer = local.l-random
-    rg-name    = var.rg.rg-name
-    location   = var.rg.location
-  }
-  tags      = var.tags
+resource "azurerm_resource_group" "k8s-rg" {
+  name     = upper(
+    format(
+      "RG-%s%s",
+      var.rg.rg-name,
+      local.l-random
+    )
+  )
+  location = var.rg.location
+  tags     = var.tags
 }

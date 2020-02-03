@@ -7,13 +7,13 @@ module "srv-master" {
     boot-diags              = true
     boot-diags-sa-uri       = module.k8s-storage-account.primary_blob_endpoint
     custom-data             = ""
-    location                = module.k8s-rg.location
+    location                = azurerm_resource_group.k8s-rg.location
     machine-size            = var.master.machine-size
     nic-count               = 1
     pip-id                  = ""
     public-key              = file(var.master.public-key-file)
     randomizer              = local.l-random
-    rg-name                 = module.k8s-rg.name
+    name                 = azurerm_resource_group.k8s-rg.name
     server-name             = format(
       "%s-master",
       var.resources.name-prefix

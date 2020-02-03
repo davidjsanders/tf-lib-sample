@@ -17,7 +17,7 @@ master = {
 
 master-data-disk = {
     disk-name    = "k8s-temp-data-disk"
-    rg-name      = "K8S-PERSISTENT"
+    name      = "K8S-PERSISTENT"
 }
 
 network = {

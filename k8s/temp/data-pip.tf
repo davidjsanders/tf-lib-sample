@@ -4,5 +4,5 @@ data "azurerm_public_ip" "attached-pip" {
     ]
 
     name                = module.k8s-jumpbox.pip-name
-    resource_group_name = module.k8s-jumpbox.rg-name
+    resource_group_name = module.k8s-jumpbox.name
 }

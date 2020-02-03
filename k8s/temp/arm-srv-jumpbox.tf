@@ -12,14 +12,14 @@ module "k8s-jumpbox" {
       "%s-jumpbox",
       var.resources.name-prefix
     )
-    location                = module.k8s-rg.location
+    location                = azurerm_resource_group.k8s-rg.location
     machine-size            = var.jumpbox.machine-size
-    nsg-id                  = module.k8s-nsg-jumpbox.id
-    nsg-name                = module.k8s-nsg-jumpbox.name
+    nsg-id                  = azurerm_network_security_group.jumpbox-nsg.id
+    nsg-name                = azurerm_network_security_group.jumpbox-nsg.name
     nsg-rule-number         = "100"
     public-key              = file(var.jumpbox.public-key-file)
     randomizer              = local.l-random
-    rg-name                 = module.k8s-rg.name
+    name                 = azurerm_resource_group.k8s-rg.name
     subnet-id               = module.k8s-network.subnet-ids[2]
     storage-image-reference = format(
       "/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Compute/images/%s",
