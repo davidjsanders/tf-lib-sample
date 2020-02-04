@@ -1,5 +1,5 @@
 module "k8s-network" {
-  source = "git@github.com:dgsd-consulting/tf-library.git//azure/3-tier-network/"
+  source = "git@github.com:dgsd-consulting/tf-library.git//azure/3-tier-network?ref=v0.3"
 
   network = {
     address-space   = var.network.address-space
