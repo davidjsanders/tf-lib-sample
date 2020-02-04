@@ -5,13 +5,7 @@ module "worker-scale-set" {
             enable = true
             uri    = azurerm_storage_account.sa.primary_blob_endpoint
         }
-        data-disk        = [{
-            caching        = "ReadWrite"
-            create-option  = "Empty"
-            disk-size-gb   = 100
-            lun            = 1
-            managed-type   = "Premium_LRS"
-        }]
+        data-disk        = []
         location         = azurerm_resource_group.k8s-rg.location
         network          = {
             lb-backend-address-pool-ids = []
