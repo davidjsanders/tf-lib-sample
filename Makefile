@@ -18,6 +18,7 @@ taint:
 
 init:
 	@start="`date`"; \
+	rm -rf .terraform/modules; \
 	terraform init -backend-config=beconf.tfvars ; \
 	echo ; \
 	echo "Started init at  : $$start"; \

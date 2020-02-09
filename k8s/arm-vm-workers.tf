@@ -1,19 +1,17 @@
-module "worker-scale-set" {
-    source = "git@github.com:dgsd-consulting/tf-library.git//azure/linux-vm-scale-set"
-    scale-set = {
+module "vm" {
+#    source = "git@github.com:dgsd-consulting/tf-library.git//azure/linux-server?ref=v0.3"
+    source = "git@github.com:dgsd-consulting/tf-library.git//azure/linux-server"
+    linux-server = {
         boot-diagnostics = {
             enable = true
             uri    = azurerm_storage_account.sa.primary_blob_endpoint
         }
-        data-disk        = []
         location         = azurerm_resource_group.k8s-rg.location
         network          = {
-            lb-backend-address-pool-ids = []
-            lb-inbound-nat-rules-ids    = []
-            private-ip-address          = ""
-            private-ip-alloc            = "Dynamic"
-            public-ip-id                = ""
-            subnet-id                   = module.k8s-network.subnets.*.id[1]
+            private-ip-address = ""
+            private-ip-alloc   = "Dynamic"
+            public-ip-id       = ""
+            subnet-id          = module.k8s-network.subnets.*.id[2]
         }
         os               = {
             admin-user              = var.jumpbox.admin-user
@@ -38,13 +36,11 @@ module "worker-scale-set" {
         }
         randomizer       = local.l-random
         rg-name          = azurerm_resource_group.k8s-rg.name
-        scale-set-name   = "WORKERS-SCALE-SET"
         server           = {
-            capacity            = 2
+            availability-set-id = ""
             machine-size        = var.master.machine-size
-            server-name         = "WORKER"
-            tier                = "Standard"
-            upgrade-policy-mode = "Manual"
+            server-name         = "TEST-VM"
+            server-count        = 1
         }
     }
     tags         = var.tags

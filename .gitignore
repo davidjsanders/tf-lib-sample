@@ -27,6 +27,7 @@ override.tf.json
 **/beconf.tfvars
 **/.DS_Store
 **/*.old
+**/*.tf-old
 **/*.log
 **/*.out
 **/.vscode
