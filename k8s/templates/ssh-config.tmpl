@@ -1,0 +1,9 @@
+%{ for h in hosts ~}
+Host ${h["name"]}
+  ForwardAgent no
+  Hostname ${h["ip"]}
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+%{ endfor ~}

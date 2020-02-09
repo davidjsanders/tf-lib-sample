@@ -1,0 +1,44 @@
+[jumpbox]
+${jumpboxes["jumpbox-name"]} ansible_host=${jumpboxes["jumpbox-ip"]}
+
+[master]
+${master["master-name"]} ansible_host=${master["master-ip"]}
+
+[masters]
+%{ for m in masters ~}
+${m["master-name"]} ansible_host=${m["master-ip"]}
+%{ endfor ~}
+
+[workers]
+%{ for w in workers ~}
+${w["worker-name"]} ansible_host=${w["worker-ip"]}
+%{ endfor ~}
+
+[all:vars]
+admin="${admin}"
+ansible_ssh_user=${admin}
+ansible_ssh_private_key_file=${ansible_ssh_private_key_file}
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+ansible_python_interpreter=/usr/bin/python3
+auth_file="${auth_file}"
+domain="${domain}"
+email="${email}"
+helm_service_account_name="${helm_service_account_name}"
+nexus_username="${nexus["username"]}"
+nexus_password="${nexus["password"]}"
+os_k8s_version="${os_k8s_version}"
+postgres_db="${postgres["db"]}"
+postgres_user="${postgres["user"]}"
+postgres_password="${postgres["password"]}"
+postgres_endpoint="${postgres["endpoint"]}"
+postgres_port="${postgres["port"]}"
+prod_staging_flag="${prod_staging_flag}"
+registry="${registry}"
+KUBEADM_API="${kubeadm["api"]}"
+KUBEADM_API_VERSION="${kubeadm["api_version"]}"
+KUBEADM_API_ADVERTISE_IP="${kubeadm["api_advertise_ip"]}"
+KUBEADM_CERT_DIR="${kubeadm["cert_dir"]}"
+KUBEADM_CLUSTER_NAME="${kubeadm["cluster_name"]}"
+KUBEADM_POD_SUBNET="${kubeadm["pod_subnet"]}"
+KUBEADM_SERVICE_SUBNET="${kubeadm["service_subnet"]}"
+KUBEADM_K8S_VERSION="${kubeadm["version"]}"

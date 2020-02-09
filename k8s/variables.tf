@@ -20,13 +20,14 @@ variable "jumpbox" {
       }
   )
 }
-variable "master" {
+variable "masters" {
   type = object(
       {
           admin-user       = string
           image-name       = string
           image-rg         = string
           machine-size     = string
+          no-of-masters    = number
           private-key-file = string
           public-key-file  = string
       }
@@ -68,6 +69,7 @@ variable "workers" {
           image-name       = string
           image-rg         = string
           machine-size     = string
+          no-of-workers    = number
           private-key-file = string
           public-key-file  = string
       }
