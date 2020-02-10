@@ -36,7 +36,7 @@ variable "masters" {
 variable "master-data-disk" {
     type = object({
         disk-name = string
-        name   = string
+        rg-name   = string
     })
 }
 variable "network" {

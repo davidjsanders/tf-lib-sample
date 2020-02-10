@@ -51,25 +51,26 @@ resource "null_resource" "jumpbox-provisioner" {
             auth_file                    = ""
             domain                       = ""
             email                        = ""
-            helm_service_account_name    = "helmer"
+            helm_service_account_name    = "tiller"
             jumpboxes                    = {
                 "jumpbox-name": module.vm-jumpbox.vm-name[0]
                 "jumpbox-ip"  : module.vm-jumpbox.nic-private-ip[0]
             }
             kubeadm                      = {
-                api              = ""
-                api_version      = ""
-                api_advertise_ip = ""
-                cert_dir         = ""
-                cluster_name     = ""
-                pod_subnet       = ""
-                service_subnet   = ""
-                version          = ""
+                api              = "kubeadm.k8s.io"
+                api_version      = "v1beta1"
+                api_advertise_ip = module.vm-masters.nic-private-ips[0]
+                cert_dir         = "/etc/kubernetes/pki"
+                cluster_name     = "kubernetes"
+                pod_subnet       = "192.168.0.0/16"
+                service_subnet   = "10.96.0.0/12"
+                version          = "v1.14.3"
             }
             master                       = {
                 "master-name": module.vm-masters.vm-names[0]
                 "master-ip"  : module.vm-workers.nic-private-ips[0]
             }
+            master_name = module.vm-masters.vm-names[0]
             masters                      = [
                 for i in range(0, var.masters.no-of-masters) : {
                     "master-name": module.vm-masters.vm-names[i]
@@ -80,7 +81,7 @@ resource "null_resource" "jumpbox-provisioner" {
                 password = ""
                 username = ""
             }
-            os_k8s_version               = ""
+            os_k8s_version="1.14.3-00"
             postgres                     = {
                 db       = ""
                 endpoint = ""
@@ -103,4 +104,26 @@ resource "null_resource" "jumpbox-provisioner" {
         var.jumpbox.admin-user
     )
   }
+
+  provisioner "file" {
+    content    = templatefile(
+        "templates/bootstrap.sh",
+        {
+            admin = var.jumpbox.admin-user
+        }
+    )
+    destination = format(
+        "/home/%s/bootstrap.sh",
+        var.jumpbox.admin-user
+    )
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x ~/bootstrap.sh",
+      "sudo ~/bootstrap.sh",
+      "echo 'Done.'",
+    ]
+  }
+
 }

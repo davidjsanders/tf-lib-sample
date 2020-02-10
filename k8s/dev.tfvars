@@ -19,20 +19,20 @@ masters = {
 
 master-data-disk = {
     disk-name    = "k8s-temp-data-disk"
-    name      = "K8S-PERSISTENT"
+    rg-name      = "K8S-PERSISTENT"
 }
 
 network = {
-    address-space   = ["192.168.0.0/23"]
+    address-space   = ["10.70.0.0/20"]
     subnet-names    = [
       "masters",
       "workers",
       "jumpboxes"
     ]
     subnet-prefixes = [
-      "192.168.0.0/26",
-      "192.168.1.0/24",
-      "192.168.0.64/27"
+      "10.70.0.0/26",
+      "10.70.1.0/24",
+      "10.70.2.0/27"
     ]
 }
 
