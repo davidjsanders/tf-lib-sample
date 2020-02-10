@@ -8,6 +8,10 @@ variable "azure-secrets" {
         }
     )
 }
+variable "ddns-secrets" {
+    type = map(any)
+    default = {}
+}
 variable "jumpbox" {
   type = object(
       {
@@ -19,6 +23,14 @@ variable "jumpbox" {
           public-key-file  = string
       }
   )
+}
+variable "k8s-secrets" {
+    type = map(any)
+    default = {}
+}
+variable "letsencrypt-secrets" {
+    type = map(any)
+    default = {}
 }
 variable "masters" {
   type = object(
@@ -45,6 +57,10 @@ variable "network" {
         subnet-names    = list(string)
         subnet-prefixes = list(string)
     })
+}
+variable "nexus-secrets" {
+    type = map(any)
+    default = {}
 }
 variable "resources" {
     type = object({

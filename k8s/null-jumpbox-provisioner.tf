@@ -1,8 +1,9 @@
 resource "null_resource" "jumpbox-provisioner" {
   triggers = {
-    masters = join(",", module.vm-masters.vm-ids)
-    jumpbox = join(",", module.vm-jumpbox.vm-id)
-    workers = join(",", module.vm-workers.vm-ids)
+    masters   = join(",", module.vm-masters.vm-ids)
+    jumpbox   = join(",", module.vm-jumpbox.vm-id)
+    workers   = join(",", module.vm-workers.vm-ids)
+    data-disk = azurerm_virtual_machine_data_disk_attachment.master-data-disk.id
   }
 
   connection {
@@ -48,9 +49,9 @@ resource "null_resource" "jumpbox-provisioner" {
                 "/home/%s/.ssh/id_rsa",
                 var.jumpbox.admin-user
             )
-            auth_file                    = ""
-            domain                       = ""
-            email                        = ""
+            auth_file                    = var.k8s-secrets.auth-file
+            domain                       = var.ddns-secrets.domain-name
+            email                        = var.ddns-secrets.email
             helm_service_account_name    = "tiller"
             jumpboxes                    = {
                 "jumpbox-name": module.vm-jumpbox.vm-name[0]
@@ -78,8 +79,8 @@ resource "null_resource" "jumpbox-provisioner" {
                 }
             ]
             nexus                        = {
-                password = ""
-                username = ""
+                password = var.nexus-secrets.password
+                username = var.nexus-secrets.username
             }
             os_k8s_version="1.14.3-00"
             postgres                     = {
