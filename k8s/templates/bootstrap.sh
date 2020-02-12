@@ -13,7 +13,11 @@ function checkError() {
 
 logIt "Process arguments"
 ARGUMENTS=`getopt -o a:d:e:u:p: \
-              --long auth_file:,domain_name:,email:,nexus_username:,nexus_password: \
+              --long auth_file: \
+              --long domain_name:\
+              --long email:\
+              --long nexus_username:\
+              --long nexus_password: \
               -n 'provisioner' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
@@ -38,6 +42,14 @@ while true; do
     * ) break ;;
   esac
 done
+
+# echo
+# echo "AUTH_FILE     : "$AUTH_FILE
+# echo "DOMAIN_NAME   : "$DOMAIN_NAME
+# echo "EMAIL         : "$EMAIL
+# echo "NEXUS_USERNAME: "$NEXUS_USERNAME
+# echo "NEXUS_PASSWORD: "$NEXUS_PASSWORD
+# echo
 
 logIt "Move inventory to /etc/ansible/hosts"
  cp /home/${admin}/inventory.txt /etc/ansible/hosts
