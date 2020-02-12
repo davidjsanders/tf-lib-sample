@@ -1,16 +1,14 @@
 variable "azure-secrets" {
     type = object(
         {
-            client-id        = string
-            client-secret    = string
-            tenant-id        = string
-            subscription-id  = string
+            client-id         = string
+            client-secret     = string
+            tenant-id         = string
+            subscription-id   = string
+            key-vault-rg-name = string
+            key-vault-name    = string
         }
     )
-}
-variable "ddns-secrets" {
-    type = map(any)
-    default = {}
 }
 variable "jumpbox" {
   type = object(
@@ -23,14 +21,6 @@ variable "jumpbox" {
           public-key-file  = string
       }
   )
-}
-variable "k8s-secrets" {
-    type = map(any)
-    default = {}
-}
-variable "letsencrypt-secrets" {
-    type = map(any)
-    default = {}
 }
 variable "masters" {
   type = object(
@@ -58,10 +48,6 @@ variable "network" {
         subnet-prefixes = list(string)
     })
 }
-variable "nexus-secrets" {
-    type = map(any)
-    default = {}
-}
 variable "resources" {
     type = object({
         name-prefix = string
@@ -73,12 +59,6 @@ variable "rg" {
     type = object({
         rg-name    = string
         location   = string
-    })
-}
-variable "secrets" {
-    type = object({
-        rg-name        = string
-        key-vault-name = string
     })
 }
 variable "tags" {
