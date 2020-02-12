@@ -75,6 +75,12 @@ variable "rg" {
         location   = string
     })
 }
+variable "secrets" {
+    type = object({
+        rg-name        = string
+        key-vault-name = string
+    })
+}
 variable "tags" {
   type = object({})
 }

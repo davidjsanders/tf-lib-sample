@@ -49,9 +49,9 @@ resource "null_resource" "jumpbox-provisioner" {
                 "/home/%s/.ssh/id_rsa",
                 var.jumpbox.admin-user
             )
-            auth_file                    = var.k8s-secrets.auth-file
-            domain                       = var.ddns-secrets.domain-name
-            email                        = var.ddns-secrets.email
+            auth_file                    = data.azurerm_key_vault_secret.nginx-ingress-auth-file.value
+            domain                       = data.azurerm_key_vault_secret.ddns-domain-name.value
+            email                        = data.azurerm_key_vault_secret.email.value
             helm_service_account_name    = "tiller"
             jumpboxes                    = {
                 "jumpbox-name": module.vm-jumpbox.vm-name[0]
@@ -79,8 +79,8 @@ resource "null_resource" "jumpbox-provisioner" {
                 }
             ]
             nexus                        = {
-                password = var.nexus-secrets.password
-                username = var.nexus-secrets.username
+                password = data.azurerm_key_vault_secret.nexus-password.value
+                username = data.azurerm_key_vault_secret.nexus-username.value
             }
             os_k8s_version="1.14.3-00"
             postgres                     = {

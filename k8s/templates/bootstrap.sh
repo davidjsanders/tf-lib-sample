@@ -23,15 +23,13 @@ checkError $?
 logIt "Clone playbook"
 git clone \
     https://github.com/dgsd-consulting/ansible-playbooks.git \
+    --branch v0.2 \
     /home/${admin}/playbook
 checkError $?
 
 logIt "Execute playbook"
-sudo -u ${admin} ansible-playbook playbook/k8s-playbook/playbook.yml
+sudo -u ${admin} \
+    ansible-playbook playbook/k8s-playbook/playbook.yml
 checkError $?
 
 logIt "Done (for just now)"
-# mkdir -p /datadrive
-# UUID=$(blkid | grep /dev/sdc1 | awk '{print $2}' | sed -e 's/UUID="\(.*\)\"/\1/')
-# echo "UUID=$UUID   /datadrive  ext4   defaults,nofail   1 2" | tee -a /etc/fstab
-# mount -a

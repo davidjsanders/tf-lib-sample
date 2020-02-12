@@ -60,7 +60,7 @@ workers = {
     image-name       = "K8S-UBUNTU-1804-20-01-26"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS3_v2"
-    no-of-workers    = 2
+    no-of-workers    = 3
     private-key-file = "~/.ssh/azure-pk"
     public-key-file  = "~/.ssh/azure-pk.pub"
 }
