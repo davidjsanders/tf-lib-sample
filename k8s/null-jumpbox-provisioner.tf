@@ -84,11 +84,11 @@ resource "null_resource" "jumpbox-provisioner" {
             }
             os_k8s_version="1.14.3-00"
             postgres                     = {
-                db       = ""
-                endpoint = ""
-                password = ""
+                db       = data.azurerm_key_vault_secret.postgres-db.value
+                endpoint = data.azurerm_key_vault_secret.postgres-endpoint.value
+                password = data.azurerm_key_vault_secret.admin-password.value
                 port     = 5432
-                user     = ""
+                user     = data.azurerm_key_vault_secret.admin-user.value
             }
             prod_staging_flag            = "dev"
             registry                     = ""
