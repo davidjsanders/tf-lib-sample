@@ -63,14 +63,20 @@ checkError $?
 logIt "Clone playbook"
 git clone \
     https://github.com/dgsd-consulting/ansible-playbooks.git \
-    --branch v0.2 \
     /home/${admin}/playbook
 checkError $?
 
 logIt "Execute playbook"
+EXTRA_VARS='{'
+EXTRA_VARS+='"auth_file": "'$AUTH_FILE'",'
+EXTRA_VARS+='"domain": "'$DOMAIN_NAME'",'
+EXTRA_VARS+='"email": "'$EMAIL'",'
+EXTRA_VARS+='"nexus_username": "'$NEXUS_USERNAME'",'
+EXTRA_VARS+='"nexus_password": "'$NEXUS_PASSWORD'"'
+EXTRA_VARS+='}'
+
 sudo -u ${admin} \
-    ansible-playbook playbook/k8s-playbook/playbook.yml
-#TODO: ADD EXTRA VARS FOR SECRETS
+    ansible-playbook playbook/k8s-playbook/playbook.yml --extra-vars "$${EXTRA_VARS}"
 checkError $?
 
 logIt "Done (for just now)"

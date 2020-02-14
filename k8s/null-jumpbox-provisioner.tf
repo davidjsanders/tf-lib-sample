@@ -49,9 +49,6 @@ resource "null_resource" "jumpbox-provisioner" {
                 "/home/%s/.ssh/id_rsa",
                 var.jumpbox.admin-user
             )
-            auth_file                    = data.azurerm_key_vault_secret.nginx-ingress-auth-file.value
-            domain                       = data.azurerm_key_vault_secret.ddns-domain-name.value
-            email                        = data.azurerm_key_vault_secret.email.value
             helm_service_account_name    = "tiller"
             jumpboxes                    = {
                 "jumpbox-name": module.vm-jumpbox.vm-name[0]
@@ -78,10 +75,6 @@ resource "null_resource" "jumpbox-provisioner" {
                     "master-ip"  : module.vm-masters.nic-private-ips[i]
                 }
             ]
-            nexus                        = {
-                password = data.azurerm_key_vault_secret.nexus-password.value
-                username = data.azurerm_key_vault_secret.nexus-username.value
-            }
             os_k8s_version="1.14.3-00"
             postgres                     = {
                 db       = data.azurerm_key_vault_secret.postgres-db.value
@@ -120,10 +113,16 @@ resource "null_resource" "jumpbox-provisioner" {
   }
 
   provisioner "remote-exec" {
-    inline = [
-      "chmod +x ~/bootstrap.sh",
-      "sudo ~/bootstrap.sh",
-      "echo 'Done.'",
+    inline = [<<EOF
+chmod +x ~/bootstrap.sh
+sudo ~/bootstrap.sh \
+    --auth_file="${data.azurerm_key_vault_secret.nginx-ingress-auth-file.value}" \
+    --domain_name="${data.azurerm_key_vault_secret.ddns-domain-name.value}" \
+    --email="${data.azurerm_key_vault_secret.email.value}" \
+    --nexus_username="${data.azurerm_key_vault_secret.nexus-username.value}" \
+    --nexus_password="${data.azurerm_key_vault_secret.nexus-password.value}"
+echo "Done.",
+EOF
     ]
   }
 

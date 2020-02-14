@@ -20,13 +20,8 @@ ansible_ssh_user=${admin}
 ansible_ssh_private_key_file=${ansible_ssh_private_key_file}
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 ansible_python_interpreter=/usr/bin/python3
-auth_file="${auth_file}"
-domain="${domain}"
-email="${email}"
 helm_service_account_name="${helm_service_account_name}"
 master_name="${master_name}"
-nexus_username="${nexus["username"]}"
-nexus_password="${nexus["password"]}"
 os_k8s_version="${os_k8s_version}"
 postgres_db="${postgres["db"]}"
 postgres_user="${postgres["user"]}"

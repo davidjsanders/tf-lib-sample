@@ -1,0 +1,1 @@
+sudo -u ansible-playbook playbook/k8s-playbook/playbook.yml --extra-vars '{"auth_file": "blah", "domain": "blahblah", "email": "blah", "nexus_username": "blah", "nexus_password": "blah" }'
