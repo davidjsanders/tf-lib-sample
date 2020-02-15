@@ -18,6 +18,10 @@ ARGUMENTS=`getopt -o a:d:e:u:p: \
               --long email:\
               --long nexus_username:\
               --long nexus_password: \
+              --long postgres_db: \
+              --long postgres_endpoint: \
+              --long postgres_password: \
+              --long postgres_username: \
               -n 'provisioner' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
@@ -30,6 +34,10 @@ DOMAIN_NAME=""
 EMAIL=""
 NEXUS_USERNAME=""
 NEXUS_PASSWORD=""
+POSTGRES_DB=""
+POSTGRES_ENDPOINT=""
+POSTGRES_PASSWORD=""
+POSTGRES_USERNAME=""
 
 while true; do
   case "$1" in
@@ -38,18 +46,14 @@ while true; do
     -e | --email ) EMAIL="$2"; shift 2 ;;
     -u | --nexus_username ) NEXUS_USERNAME="$2"; shift 2 ;;
     -p | --nexus_password ) NEXUS_PASSWORD="$2"; shift 2 ;;
+    --postgres_db ) POSTGRES_DB="$2"; shift 2 ;;
+    --postgres_endpoint ) POSTGRES_ENDPOINT="$2"; shift 2 ;;
+    --postgres_password ) POSTGRES_PASSWORD="$2"; shift 2 ;;
+    --postgres_username ) POSTGRES_USERNAME="$2"; shift 2 ;;
     -- ) shift; break ;;
     * ) break ;;
   esac
 done
-
-# echo
-# echo "AUTH_FILE     : "$AUTH_FILE
-# echo "DOMAIN_NAME   : "$DOMAIN_NAME
-# echo "EMAIL         : "$EMAIL
-# echo "NEXUS_USERNAME: "$NEXUS_USERNAME
-# echo "NEXUS_PASSWORD: "$NEXUS_PASSWORD
-# echo
 
 logIt "Move inventory to /etc/ansible/hosts"
  cp /home/${admin}/inventory.txt /etc/ansible/hosts

@@ -17,17 +17,12 @@ ${w["worker-name"]} ansible_host=${w["worker-ip"]}
 [all:vars]
 admin="${admin}"
 ansible_ssh_user=${admin}
-ansible_ssh_private_key_file=${ansible_ssh_private_key_file}
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 ansible_python_interpreter=/usr/bin/python3
 helm_service_account_name="${helm_service_account_name}"
 master_name="${master_name}"
 os_k8s_version="${os_k8s_version}"
-postgres_db="${postgres["db"]}"
-postgres_user="${postgres["user"]}"
-postgres_password="${postgres["password"]}"
-postgres_endpoint="${postgres["endpoint"]}"
-postgres_port="${postgres["port"]}"
+postgres_port=5432
 prod_staging_flag="${prod_staging_flag}"
 registry="${registry}"
 KUBEADM_API="${kubeadm["api"]}"

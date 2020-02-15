@@ -45,10 +45,6 @@ resource "null_resource" "jumpbox-provisioner" {
         "templates/inventory.tmpl",
         {
             admin                        = var.jumpbox.admin-user
-            ansible_ssh_private_key_file = format(
-                "/home/%s/.ssh/id_rsa",
-                var.jumpbox.admin-user
-            )
             helm_service_account_name    = "tiller"
             jumpboxes                    = {
                 "jumpbox-name": module.vm-jumpbox.vm-name[0]
@@ -76,13 +72,6 @@ resource "null_resource" "jumpbox-provisioner" {
                 }
             ]
             os_k8s_version="1.14.3-00"
-            postgres                     = {
-                db       = data.azurerm_key_vault_secret.postgres-db.value
-                endpoint = data.azurerm_key_vault_secret.postgres-endpoint.value
-                password = data.azurerm_key_vault_secret.admin-password.value
-                port     = 5432
-                user     = data.azurerm_key_vault_secret.admin-user.value
-            }
             prod_staging_flag            = "dev"
             registry                     = ""
             workers                      = [
@@ -120,7 +109,12 @@ sudo ~/bootstrap.sh \
     --domain_name="${data.azurerm_key_vault_secret.ddns-domain-name.value}" \
     --email="${data.azurerm_key_vault_secret.email.value}" \
     --nexus_username="${data.azurerm_key_vault_secret.nexus-username.value}" \
-    --nexus_password="${data.azurerm_key_vault_secret.nexus-password.value}"
+    --nexus_password="${data.azurerm_key_vault_secret.nexus-password.value}" \
+    --postgres_db="${data.azurerm_key_vault_secret.postgres-db.value}" \
+    --postgres_endpoint="${data.azurerm_key_vault_secret.postgres-endpoint.value}" \
+    --postgres_password="${data.azurerm_key_vault_secret.admin-password.value}" \
+    --postgres_username="${data.azurerm_key_vault_secret.admin-user.value}" \
+    --private_key_file="${format("/home/%s/.ssh/id_rsa",var.jumpbox.admin-user)}"
 echo "Done.",
 EOF
     ]
