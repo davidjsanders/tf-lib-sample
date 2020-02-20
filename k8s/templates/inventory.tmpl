@@ -21,7 +21,7 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/
 ansible_python_interpreter=/usr/bin/python3
 helm_service_account_name="${helm_service_account_name}"
 master_name="${master_name}"
-os_k8s_version="${os_k8s_version}"
+os_k8s_version="${kubeadm["version"]}"
 postgres_port=5432
 prod_staging_flag="${prod_staging_flag}"
 registry="${registry}"
@@ -32,4 +32,4 @@ KUBEADM_CERT_DIR="${kubeadm["cert_dir"]}"
 KUBEADM_CLUSTER_NAME="${kubeadm["cluster_name"]}"
 KUBEADM_POD_SUBNET="${kubeadm["pod_subnet"]}"
 KUBEADM_SERVICE_SUBNET="${kubeadm["service_subnet"]}"
-KUBEADM_K8S_VERSION="${kubeadm["version"]}"
+KUBEADM_K8S_VERSION="${kubeadm["kubeadm_version"]}"

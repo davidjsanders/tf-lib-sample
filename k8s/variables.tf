@@ -22,6 +22,19 @@ variable "jumpbox" {
       }
   )
 }
+variable "kubernetes" {
+    type = object({
+        api             = string
+        api-version     = string
+        cert-dir        = string
+        cluster-name    = string
+        helm-account    = string
+        kubeadm-version = string
+        pod-subnet      = string
+        service-subnet  = string
+        version         = string
+    })
+}
 variable "masters" {
   type = object(
       {
