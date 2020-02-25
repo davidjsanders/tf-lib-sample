@@ -1,6 +1,6 @@
 jumpbox = {
     admin-user       = "azadmin"
-    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-18.2"
+    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.1"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS1_v2"
     private-key-file = "~/.ssh/azure-pk"
@@ -13,15 +13,15 @@ kubernetes = {
     cert-dir        = "/etc/kubernetes/pki"
     cluster-name    = "kubernetes"
     helm-account    = "tiller"
-    kubeadm-version = "1.16.7"
+    kubeadm-version = "1.17.1"
     pod-subnet      = "192.168.0.0/16"
     service-subnet  = "10.96.0.0/12"
-    version         = "1.16.7-00"
+    version         = "1.17.1-00"
 }
 
 masters = {
     admin-user       = "azadmin"
-    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-18.2"
+    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.1"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS2_v2"
     no-of-masters    = 1
@@ -69,7 +69,7 @@ tags                 = {
 
 workers = {
     admin-user       = "azadmin"
-    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-18.2"
+    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.1"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS3_v2"
     no-of-workers    = 3
