@@ -1,6 +1,6 @@
 jumpbox = {
     admin-user       = "azadmin"
-    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.1"
+    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.2"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS1_v2"
     private-key-file = "~/.ssh/azure-pk"
@@ -21,7 +21,7 @@ kubernetes = {
 
 masters = {
     admin-user       = "azadmin"
-    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.1"
+    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.2"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS2_v2"
     no-of-masters    = 1
@@ -69,7 +69,7 @@ tags                 = {
 
 workers = {
     admin-user       = "azadmin"
-    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.1"
+    image-name       = "K8S-UBUNTU-ANSIBLE-20-02-24.2"
     image-rg         = "RG-ENGINEERING"
     machine-size     = "Standard_DS3_v2"
     no-of-workers    = 3

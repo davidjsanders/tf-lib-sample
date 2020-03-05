@@ -26,23 +26,27 @@ init:
 	echo
 
 plan:
-	@start="`date`"; \
+	@start="`date`";
+	@logname="`date +'logs/plan-%m%d%Y-%H%M%S.log'`"; \
+	echo "Writing logs to $$logname"; \
 	terraform plan \
 		-input=false \
 		-out=$(ENVIRONMENT)-run \
 		-var-file=$(ENVIRONMENT).tfvars \
 		-var-file=credentials.secret\
-		${EXTRA_ARGS}; \
+		${EXTRA_ARGS} 2>&1 | tee $$logname; \
 	echo ; \
 	echo "Started plan at  : $$start"; \
 	echo "Finished plan at : `date`"; \
 	echo
 
 apply:
-	@start="`date`"; \
+	@start="`date`";
+	@logname="`date +'logs/apply-%m%d%Y-%H%M%S.log'`"; \
+	echo "Writing logs to $$logname"; \
 	terraform apply \
 		-input=false \
-		$(ENVIRONMENT)-run; \
+		$(ENVIRONMENT)-run 2>&1 | tee $$logname; \
 	echo ; \
 	echo "Started apply at  : $$start"; \
 	echo "Finished apply at : `date`"; \
@@ -58,10 +62,13 @@ outputs:
 	echo
 
 destroy:
-	@start="`date`"; \
+	@start="`date`";
+	@logname="`date +'logs/destroy-%m%d%Y-%H%M%S.log'`"; \
+	echo "Writing logs to $$logname"; \
 	terraform destroy \
+	    $(EXTRA_ARGS) \
 		-var-file=$(ENVIRONMENT).tfvars \
-		-var-file=credentials.secret; \
+		-var-file=credentials.secret 2>&1 | tee $$logname; \
 	echo ; \
 	echo "Started destroy at  : $$start"; \
 	echo "Finished destroy at : `date`"; \

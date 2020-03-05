@@ -37,7 +37,7 @@ module "vm-workers" {
         randomizer       = local.l-random
         rg-name          = azurerm_resource_group.k8s-rg.name
         server           = {
-            availability-set-id = ""
+            availability-set-id = azurerm_availability_set.k8s-workers.id
             machine-size        = var.workers.machine-size
             server-name         = "WORKER"
             server-count        = var.workers.no-of-workers

@@ -11,7 +11,10 @@ module "vm-jumpbox" {
             nsg-name              = azurerm_network_security_group.jumpbox-nsg.name
             nsg-rule-priority     = 1000
             pip-alloc             = "Dynamic"
-            pip-domain-name-label = "dasander-jumpbox"
+            pip-domain-name-label = format(
+                "dasander-jumpbox%s",
+                local.l-random
+            )
             pip-sku               = "Basic"
             private-ip-address    = ""
             private-ip-alloc      = "Dynamic"
