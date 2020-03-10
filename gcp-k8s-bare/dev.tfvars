@@ -1,22 +1,21 @@
-# datadisk = [
-#     {
-#         block_size_bytes = 4096
-#         disk-name        = "opt"
-#         disk-size-in-gb  = 40
-#         disk-type        = "pd-ssd"
-#         mountpoint       = "/opt"
-#         zone             = "us-east1-b"
-#     },
-#     {
-#         block_size_bytes = 4096
-#         disk-name        = "datadisk"
-#         disk-size-in-gb  = 100
-#         disk-type        = "pd-ssd"
-#         mountpoint       = "/datadrive"
-#         zone             = "us-east1-b"
-#     }
-# ]
-datadisk = []
+datadisk = [
+    {
+        block_size_bytes = 4096
+        disk-name        = "opt"
+        disk-size-in-gb  = 40
+        disk-type        = "pd-ssd"
+        mountpoint       = "/opt"
+        zone             = "us-east1-b"
+    },
+    {
+        block_size_bytes = 4096
+        disk-name        = "datadisk"
+        disk-size-in-gb  = 100
+        disk-type        = "pd-ssd"
+        mountpoint       = "/datadrive"
+        zone             = "us-east1-b"
+    }
+]
 firewall-values = {
     allow-ports   = [
         { port=5000, protocol = "tcp" }

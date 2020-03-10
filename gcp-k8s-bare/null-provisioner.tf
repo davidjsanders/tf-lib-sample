@@ -1,18 +1,24 @@
-resource "null_resource" "vm-provisioner" {
+resource "null_resource" "master-provisioner" {
     triggers = {
-        vm-id          = google_compute_instance.vm.id
-        vm-user        = var.server-jumpbox.admin-user
+        bastion-ip     = module.vm-jumpbox.ip
+        disk-devices   = join(
+            ",",
+            google_compute_attached_disk.datadisk-attach.*.device_name
+        )
+        nic-ip-address = module.vm-master.private-ip
+        vm-id          = module.vm-master.self-link
         vm-keyfile     = file(var.server-jumpbox.keyfile)
-        nic-ip-address = var.server-jumpbox.public-ip ? google_compute_instance.vm.network_interface.0.access_config.0.nat_ip : ""
+        vm-user        = var.server-jumpbox.admin-user
     }
 
-    ## To Do - dynamic block for provisioner
     connection {
+        bastion_host = self.triggers.bastion-ip
         host         = self.triggers.nic-ip-address
         type         = "ssh"
         user         = self.triggers.vm-user
         private_key  = self.triggers.vm-keyfile
     }
+
     provisioner "file" {
         content = templatefile(
             "${path.module}/templates/bootstrap.sh",
