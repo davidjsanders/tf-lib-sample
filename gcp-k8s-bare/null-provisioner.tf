@@ -1,12 +1,12 @@
 resource "null_resource" "master-provisioner" {
     triggers = {
-        bastion-ip     = module.vm-jumpbox.ip
+        bastion-ip     = module.vm-jumpbox.ip[0]
         disk-devices   = join(
             ",",
             google_compute_attached_disk.datadisk-attach.*.device_name
         )
-        nic-ip-address = module.vm-master.private-ip
-        vm-id          = module.vm-master.self-link
+        nic-ip-address = module.vm-master.private-ip[0]
+        vm-id          = module.vm-master.self-link[0]
         vm-keyfile     = file(var.server-jumpbox.keyfile)
         vm-user        = var.server-jumpbox.admin-user
     }

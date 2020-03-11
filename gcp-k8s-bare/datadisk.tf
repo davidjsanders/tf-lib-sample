@@ -1,6 +1,10 @@
 resource "google_compute_disk" "datadisk" {
     count = length(var.datadisk)
 
+    depends_on = [
+        module.vm-master[0]
+    ]
+
     labels                    = var.labels
     name                      = format(
         "%s-%s",

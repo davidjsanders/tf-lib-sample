@@ -59,6 +59,7 @@ variable "server-master" {
         pub-keyfile  = string
         public-ip    = bool
         script       = string
+        vm-count     = number
         vm-hostname  = string
         vm-prefix    = string
         zone         = string

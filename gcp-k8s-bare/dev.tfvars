@@ -53,6 +53,7 @@ server-master = {
     pub-keyfile  = "~/.ssh/gcp-admin.pub"
     public-ip    = false
     script       = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync; pip install flask"
+    vm-count     = 3
     vm-hostname  = ""
     vm-prefix    = "master"
     zone         = "us-east1-b"
