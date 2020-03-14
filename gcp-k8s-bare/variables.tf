@@ -41,10 +41,13 @@ variable "server-jumpbox" {
     type = object({
         admin-user   = string
         delete-osd   = bool
+        image-id     = string
         keyfile      = string
         machine-type = string
+        network      = string
         pub-keyfile  = string
         script       = string
+        subnetwork   = string
         vm-hostname  = string
         vm-prefix    = string
         zone         = string
@@ -54,11 +57,32 @@ variable "server-master" {
     type = object({
         admin-user   = string
         delete-osd   = bool
+        image-id     = string
         keyfile      = string
         machine-type = string
+        network      = string
         pub-keyfile  = string
         public-ip    = bool
         script       = string
+        subnetwork   = string
+        vm-count     = number
+        vm-hostname  = string
+        vm-prefix    = string
+        zone         = string
+    })
+}
+variable "server-workers" {
+    type = object({
+        admin-user   = string
+        delete-osd   = bool
+        image-id     = string
+        keyfile      = string
+        machine-type = string
+        network      = string
+        pub-keyfile  = string
+        public-ip    = bool
+        script       = string
+        subnetwork   = string
         vm-count     = number
         vm-hostname  = string
         vm-prefix    = string

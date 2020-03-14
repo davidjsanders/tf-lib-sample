@@ -18,10 +18,10 @@ datadisk = [
 ]
 firewall-values = {
     allow-ports   = [
-        { port=5000, protocol = "tcp" }
+        { port=22, protocol = "tcp" }
     ]
     deny-ports    = []
-    firewall-name = "flask-firewall"
+    firewall-name = "network-firewall"
     network-name  = "default"
 }
 google-project = {
@@ -37,10 +37,13 @@ labels = {
 server-jumpbox = {
     admin-user   = "gcpadmin"
     delete-osd   = true
+    image-id     = "k8su-1804-20-03-14-1"
     keyfile      = "~/.ssh/gcp-admin"
     machine-type = "f1-micro"
+    network      = "djs-test"
     pub-keyfile  = "~/.ssh/gcp-admin.pub"
-    script       = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync; pip install flask"
+    script       = "sudo apt-get update; sudo apt-get install -yq jq"
+    subnetwork   = "jumpbox-snet"
     vm-hostname  = ""
     vm-prefix    = "jumpbox"
     zone         = "us-east1-b"
@@ -48,14 +51,33 @@ server-jumpbox = {
 server-master = {
     admin-user   = "gcpadmin"
     delete-osd   = true
+    image-id     = "k8su-1804-20-03-14-1"
     keyfile      = "~/.ssh/gcp-admin"
     machine-type = "f1-micro"
+    network      = "djs-test"
     pub-keyfile  = "~/.ssh/gcp-admin.pub"
     public-ip    = false
-    script       = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync; pip install flask"
-    vm-count     = 3
+    script       = "sudo apt-get update; sudo apt-get install -yq jq"
+    subnetwork   = "master-snet"
+    vm-count     = 1
     vm-hostname  = ""
     vm-prefix    = "master"
+    zone         = "us-east1-b"
+}
+server-workers = {
+    admin-user   = "gcpadmin"
+    delete-osd   = true
+    image-id     = "k8su-1804-20-03-14-1"
+    keyfile      = "~/.ssh/gcp-admin"
+    machine-type = "f1-micro"
+    network      = "djs-test"
+    pub-keyfile  = "~/.ssh/gcp-admin.pub"
+    public-ip    = false
+    script       = "sudo apt-get update; sudo apt-get install -yq jq"
+    subnetwork   = "workers-snet"
+    vm-count     = 3
+    vm-hostname  = ""
+    vm-prefix    = "worker"
     zone         = "us-east1-b"
 }
     # vm-hostname  = "ubuvm.dgsd-consulting.com"

@@ -1,0 +1,5 @@
+resource "null_resource" "null-depends-fw" {
+    triggers = {
+        firewall = module.vm-master.self-link[0]
+    }
+}

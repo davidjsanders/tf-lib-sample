@@ -17,8 +17,8 @@ taint:
 	echo
 
 init:
+	@rm -rf .terraform/modules;
 	@start="`date`"; \
-	rm -rf .terraform/modules; \
 	terraform init -backend-config=beconf.tfvars ; \
 	echo ; \
 	echo "Started init at  : $$start"; \
@@ -26,6 +26,7 @@ init:
 	echo
 
 plan:
+	@if [ "$(ENVIRONMENT)" != "$$(terraform workspace show)" ]; then echo "\nError: Workspace ($$(terraform workspace show)) and Environment ($(ENVIRONMENT)) do not match.\n"; exit 1; fi
 	@start="`date`"; \
 	terraform plan \
 		-input=false \
@@ -39,6 +40,7 @@ plan:
 	echo
 
 apply:
+	@if [ "$(ENVIRONMENT)" != "$$(terraform workspace show)" ]; then echo "\nError: Workspace ($$(terraform workspace show)) and Environment ($(ENVIRONMENT)) do not match.\n"; exit 1; fi
 	@start="`date`"; \
 	terraform apply \
 		-input=false \
@@ -58,6 +60,7 @@ outputs:
 	echo
 
 destroy:
+	@if [ "$(ENVIRONMENT)" != "$$(terraform workspace show)" ]; then echo "\nError: Workspace ($$(terraform workspace show)) and Environment ($(ENVIRONMENT)) do not match.\n"; exit 1; fi
 	@start="`date`"; \
 	terraform destroy \
 	    $(EXTRA_ARGS) \
