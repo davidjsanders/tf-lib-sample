@@ -1,0 +1,21 @@
+[jumpboxes]
+jumpbox ansible_host=${jumpbox-ip}
+
+[masters]
+%{ for m in masters ~}
+${m.master-name}  ansible_host=${m.master-host}
+%{ endfor ~}
+
+[workers]
+%{ for w in workers ~}
+${w.worker-name}  ansible_host=${w.worker-host}
+%{ endfor ~}
+
+[all:vars]
+admin=${admin-user}
+ansible_ssh_user=${admin-user}
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+ansible_python_interpreter=/usr/bin/python3
+master_subnet=${master-subnet}
+workers_subnet=${worker-subnet}
+jumpbox=${jumpbox-hostname}

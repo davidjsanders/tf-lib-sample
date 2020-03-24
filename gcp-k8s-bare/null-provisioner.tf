@@ -44,11 +44,4 @@ echo "Done.",
 EOF
         ]
     }
-
-    provisioner "remote-exec" {
-        when = destroy
-        inline = [
-            "echo 'Destroying :) '"
-        ]
-    }
 }
