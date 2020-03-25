@@ -63,14 +63,9 @@ resource "null_resource" "jumpbox-provisioner" {
 chmod +x ~/bootstrap-jumpbox.sh
 chmod 0600 ~/.ssh/id_rsa
 sudo ~/bootstrap-jumpbox.sh
-if [ "$?" == "0"]
-then
-    ansible-playbook \
-        -i inventory.yml \
-        ansible-playbooks/squid-proxy/playbook.yml
-else
-    echo "The bootstrap returned non-zero error code."
-fi
+ansible-playbook \
+    -i inventory.yml \
+    ansible-playbooks/squid-proxy/playbook.yml
 echo "Done.",
 EOF
         ]
